@@ -20,4 +20,13 @@ async function recoverKey(message, signature, recoveryBit) {
     let result = secp256k1.recoverPublicKey(hashMessage(message), signature, recoveryBit);
     console.log(result);
 }
+
+function getAddress(publicKey) {
+    const no_formated_pk = publicKey.slice(1);
+    const hash_pk = keccak256(no_formated_pk);
+    return hash_pk.slice(-20);
+}
+
+
+
 recoverKey('TRX:2025-on-chain', signMessage('TRX:2025-on-chain'), 1);
