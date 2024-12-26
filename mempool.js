@@ -14,8 +14,18 @@ function mine() {
     while(transactions.length < MAX_TRANSACTIONS && mempool.length > 0){
         transactions.push(mempool.pop());
     }
-    const block = { id: blocks.length, transactions};
-    const hash = SHA256(JSON.stringify(block));
+    let nonce = 0;
+    let block = { id: blocks.length, transactions, nonce};
+    let hash = SHA256(JSON.stringify(block)); 
+
+    while(BigInt(`0x${hash}`) > TARGET_DIFFICULTY){
+
+        let block = { id: blocks.length, transactions, nonce};
+        hash = SHA256(JSON.stringify(block));
+        nonce += 1; 
+
+    }
+
     blocks.push({...block, hash});
 }
 
