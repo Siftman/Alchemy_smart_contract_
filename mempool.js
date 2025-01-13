@@ -22,8 +22,7 @@ function mine() {
 
         let block = { id: blocks.length, transactions, nonce};
         hash = SHA256(JSON.stringify(block));
-        nonce += 1; 
-
+        nonce += 1;
     }
 
     blocks.push({...block, hash});
